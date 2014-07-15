@@ -42,6 +42,7 @@ namespace PersonProject.Models
 
             currentPerson.FirstName = person.FirstName;
             currentPerson.LastName = person.LastName;
+            currentPerson.BirthDate = person.BirthDate;
             _context.SaveChanges();
         }
 

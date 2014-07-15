@@ -25,6 +25,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.LastName)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </th>
             <th colspan="3">&nbsp;</th>
         </tr>
     
@@ -36,6 +39,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => person.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => person.BirthDate)
             </td>
             <td>
                 <a href="/Person/@person.Id">Details</a>

@@ -31,5 +31,11 @@ namespace PersonProject.Model
         [Required, MinLength(2), MaxLength(255)]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Birth Date")]
+        public Nullable<DateTime> BirthDate { get; set; }
     }
 }
