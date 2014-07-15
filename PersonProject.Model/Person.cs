@@ -7,16 +7,16 @@ namespace PersonProject.Model
     [Table("People")]
     public class Person
     {
-        [Obsolete]
         public Person()
         {
         }
 
-        public Person(int id, string firstName, string lastName)
+        public Person(int id, string firstName, string lastName, DateTime birthDate)
         {
+            Id = id;
             FirstName = firstName;
             LastName = lastName;
-            Id = id;
+            BirthDate = birthDate;
         }
 
         [Key]

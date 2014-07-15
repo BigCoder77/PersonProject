@@ -15,7 +15,7 @@ namespace PersonProject.Tests
         [Given(@"I have created a person with FirstName (.*) and LastName (.*)")]
         public void GivenIHaveCreatedAPersonWithFirstNameAndLastName(string firstName, string lastName)
         {
-            _person = new Person(firstName, lastName);
+            _person = new Person(0,firstName, lastName, DateTime.Now);
         }
 
         [Given(@"I have created a person without firstName and LastName (.*)")]
@@ -24,7 +24,7 @@ namespace PersonProject.Tests
             _isArgumentNullExceptionForFirstNameThrown = false;
             try
             {
-                _person = new Person(null, lastName);
+                _person = new Person(0, null, lastName, DateTime.Now);
             }
             catch (ArgumentNullException e)
             {
@@ -39,7 +39,7 @@ namespace PersonProject.Tests
             _isArgumentNullExceptionForFirstNameThrown = false;
             try
             {
-                _person = new Person(string.Empty, lastName);
+                _person = new Person(0, string.Empty, lastName, DateTime.Now);
             }
             catch (ArgumentNullException e)
             {

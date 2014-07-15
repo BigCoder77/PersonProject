@@ -28,7 +28,7 @@ namespace PersonProject.Models
         public Person GetById(int id)
         {
             var person = _context.People.SingleOrDefault(p => p.Id == id);
-            return person ?? new Person(id, string.Empty, string.Empty);
+            return person ?? new Person(id, string.Empty, string.Empty, DateTime.Now);
         }
 
         public void Update(Person person)

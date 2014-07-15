@@ -17,7 +17,7 @@ namespace PersonProject.Tests
             Step3();
 
             // act
-            var person = new Person(null, "Hubert");
+            var person = new Person(0, null, "Hubert", DateTime.Now);
 
             // assert
             Assert.Fail();
@@ -28,7 +28,7 @@ namespace PersonProject.Tests
             // arrange
 
             // act
-            var person = new Person("Hubert", "Mayer");
+            var person = new Person(0, "Hubert", "Mayer", DateTime.Now);
 
             // assert
             Assert.AreEqual("Hubert", person.FirstName);
@@ -39,7 +39,7 @@ namespace PersonProject.Tests
             // arrange
 
             // act
-            var person = new Person("Hubert", "Mayer");
+            var person = new Person(0, "Hubert", "Mayer", DateTime.Now);
 
             // assert
             Assert.AreEqual("Mayer", person.LastName);
