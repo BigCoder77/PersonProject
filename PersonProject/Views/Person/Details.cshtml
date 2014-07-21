@@ -47,7 +47,11 @@
         </dl>
     </div>
     <p>
-        <a href="/Person/Edit/@person.Id">Edit</a>
+        @{ if ( person.Id >= 0)
+           { 
+               <a href="/Person/Edit/@person.Id">Edit</a>
+           }
+        }
         <a href="/People">Cancel</a>
     </p>
 </body>

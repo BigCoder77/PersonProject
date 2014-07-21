@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using PersonProject.Model;
 
-namespace PersonProject.Models
+namespace PersonProject.Model
 {
     public class PersonRepository : IDisposable
     {
@@ -12,6 +12,11 @@ namespace PersonProject.Models
 
         public PersonRepository(PeopleContext context)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException("context");
+            }
+
             _context = context;
         }
 
@@ -28,10 +33,22 @@ namespace PersonProject.Models
         public Person GetById(int id)
         {
             var person = _context.People.SingleOrDefault(p => p.Id == id);
-            return person ?? new Person(id, string.Empty, string.Empty, DateTime.Now);
+            return person ?? new Person(-1);
         }
 
         public void Update(Person person)
+        {
+            PrepareUpdate(person);
+            _context.SaveChanges();
+        }
+
+        public async Task UpdateAsync(Person person)
+        {
+            PrepareUpdate(person);
+            await _context.SaveChangesAsync();
+        }
+
+        private void PrepareUpdate(Person person)
         {
             var currentPerson = _context.People.SingleOrDefault(p => p.Id == person.Id);
 
@@ -41,10 +58,10 @@ namespace PersonProject.Models
             }
 
             currentPerson.FirstName = person.FirstName;
-            currentPerson.LastName = person.LastName;
+            currentPerson.LastName  = person.LastName;
             currentPerson.BirthDate = person.BirthDate;
-            _context.SaveChanges();
         }
+
 
         public void Create(Person person)
         {
@@ -52,15 +69,36 @@ namespace PersonProject.Models
             _context.SaveChanges();
         }
 
+        public async Task CreateAsync(Person person)
+        {
+            _context.People.Add(person);
+            await _context.SaveChangesAsync();
+        }
+
+        public void Delete(int id)
+        {
+            var person = _context.People.SingleOrDefault(p => p.Id == id);
+
+            if (person == null)
+            {
+                throw new InvalidOperationException(string.Format("Person with ID '{0}' was not found.", id));
+            }
+
+            _context.People.Remove(person);
+            _context.SaveChanges();
+        }
+
         public async Task DeleteAsync(int id)
         {
             var person = _context.People.SingleOrDefault(p => p.Id == id);
 
-            if (person != null)
+            if (person == null)
             {
-                _context.People.Remove(person);
-                await _context.SaveChangesAsync();
+                throw new InvalidOperationException(string.Format("Person with ID '{0}' was not found.", id));
             }
+
+            _context.People.Remove(person);
+            await _context.SaveChangesAsync();
         }
 
         public void Dispose()

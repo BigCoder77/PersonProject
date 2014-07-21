@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using PersonProject.Model;
-using PersonProject.Models;
 
 namespace PersonProject.Controllers
 {
@@ -10,7 +9,7 @@ namespace PersonProject.Controllers
         [HttpGet]
         public ActionResult All()
         {
-            using (var repository = new PersonRepository())
+            using (var repository = NewRepository())
             {
                 return View(repository.All());
             }
@@ -25,9 +24,20 @@ namespace PersonProject.Controllers
         [HttpPost]
         public ActionResult Create(Person person)
         {
-            using (var repository = new PersonRepository())
+            using (var repository = NewRepository())
             {
                 repository.Create(person);
+            }
+
+            return new RedirectResult("/People");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateAsync(Person person)
+        {
+            using (var repository = NewRepository())
+            {
+                await repository.CreateAsync(person);
             }
 
             return new RedirectResult("/People");
@@ -36,7 +46,7 @@ namespace PersonProject.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            using (var repository = new PersonRepository())
+            using (var repository = NewRepository())
             {
                 var person = repository.GetById(id);
                 return View(person);
@@ -46,9 +56,20 @@ namespace PersonProject.Controllers
         [HttpPost]
         public ActionResult Edit(int id, Person person)
         {
-            using (var repository = new PersonRepository())
+            using (var repository = NewRepository())
             {
                 repository.Update(person);
+            }
+
+            return new RedirectResult("/People");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EditAsync(int id, Person person)
+        {
+            using (var repository = NewRepository())
+            {
+                await repository.UpdateAsync(person);
             }
 
             return new RedirectResult("/People");
@@ -57,7 +78,7 @@ namespace PersonProject.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
-            using (var repository = new PersonRepository())
+            using (var repository = NewRepository())
             {
                 var person = repository.GetById(id);
                 return View(person);
@@ -65,13 +86,28 @@ namespace PersonProject.Controllers
         }
 
         [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            using (var repository = NewRepository())
+            {
+                repository.Delete(id);
+                return new RedirectResult("/People");
+            }
+        }
+
+        [HttpGet]
         public async Task<ActionResult> DeleteAsync(int id)
         {
-            using (var repository = new PersonRepository())
+            using (var repository = NewRepository())
             {
                 await repository.DeleteAsync(id);
                 return new RedirectResult("/People");
             }
+        }
+
+        protected virtual PersonRepository NewRepository()
+        {
+            return new PersonRepository();
         }
     }
 }

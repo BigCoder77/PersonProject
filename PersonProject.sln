@@ -1,11 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
+# Visual Studio Express 2013 for Web
 VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonProject", "PersonProject\PersonProject.csproj", "{FD819FC6-4682-41C2-8407-A99D6DE60B2B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonProject.Tests", "PersonProject.Tests\PersonProject.Tests.csproj", "{DF700056-4B8F-41C6-9CCE-33A6837D89E7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FD819FC6-4682-41C2-8407-A99D6DE60B2B} = {FD819FC6-4682-41C2-8407-A99D6DE60B2B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonProject.Model", "PersonProject.Model\PersonProject.Model.csproj", "{2B3423F4-E6C4-4BDE-93CB-04A6AB171677}"
 EndProject

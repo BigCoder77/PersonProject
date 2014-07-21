@@ -11,6 +11,11 @@ namespace PersonProject.Model
         {
         }
 
+        public Person(int id)
+        {
+            Id = id;
+        }
+
         public Person(int id, string firstName, string lastName, DateTime birthDate)
         {
             Id = id;
